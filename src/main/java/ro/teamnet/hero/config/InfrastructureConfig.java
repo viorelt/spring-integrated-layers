@@ -2,8 +2,10 @@ package ro.teamnet.hero.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactory;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
@@ -31,6 +33,10 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableTransactionManagement
+@EnableJpaRepositories(basePackages = "ro.teamnet.hero.repository")
+@ComponentScan(basePackages = {
+        "ro.teamnet.hero.service"})
+
 public class InfrastructureConfig {
 
     @Bean(destroyMethod = "shutdown")
@@ -82,7 +88,7 @@ public class InfrastructureConfig {
 
     @Bean
     @Autowired
-    public org.springframework.transaction.PlatformTransactionManager transactionManagerCov(EntityManagerFactory entityManagerFactory) {
+    public org.springframework.transaction.PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 }
