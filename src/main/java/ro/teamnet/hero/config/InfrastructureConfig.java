@@ -18,6 +18,7 @@ import org.springframework.orm.jpa.vendor.AbstractJpaVendorAdapter;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -34,8 +35,9 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "ro.teamnet.hero.repository")
+@EnableWebMvc
 @ComponentScan(basePackages = {
-        "ro.teamnet.hero.service"})
+        "ro.teamnet.hero.service","ro.teamnet.hero.controller"})
 
 public class InfrastructureConfig {
 

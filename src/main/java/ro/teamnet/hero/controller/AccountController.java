@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import ro.teamnet.hero.domain.Account;
 import ro.teamnet.hero.service.AccountService;
 
@@ -29,12 +30,14 @@ public class AccountController {
     private AccountService accountService;
 
     @RequestMapping(method = RequestMethod.GET)
+    @ResponseBody
     public ResponseEntity<String> accountList(){
 
         List<Account> accountList=accountService.findAll();
         JSONSerializer jsonSerializer=new JSONSerializer();
         String accountListJson=jsonSerializer
                 .exclude(".class")
+                .exclude("person")
                 .serialize(accountList);
         return new ResponseEntity<String>(accountListJson, HttpStatus.OK);
     }
