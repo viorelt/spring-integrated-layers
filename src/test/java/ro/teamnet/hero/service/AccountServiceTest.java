@@ -11,6 +11,8 @@ import ro.teamnet.hero.config.InfrastructureConfig;
 import ro.teamnet.hero.domain.Account;
 import ro.teamnet.hero.domain.Person;
 
+import java.math.BigDecimal;
+
 /**
  * AccountServiceTest.java
  * <p/>
@@ -48,6 +50,10 @@ public class AccountServiceTest {
 
     @Test
     public void testFindById() throws Exception {
+        Account account1=accountService.findById(BigDecimal.ONE);
+        Assert.assertNotNull(account1);
+            Account account2=accountService.findById(BigDecimal.valueOf(2));
+        Assert.assertNotNull(account2);
 
     }
 }

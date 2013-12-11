@@ -3,6 +3,7 @@ package ro.teamnet.hero.service;
 import ro.teamnet.hero.domain.Account;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * AccountService.java
@@ -19,4 +20,6 @@ public interface AccountService {
     Account createAccount(Account account);
 
     Account findById(BigDecimal idAccount);
+
+    List<Account> findAll();
 }
