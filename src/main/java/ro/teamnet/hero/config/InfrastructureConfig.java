@@ -35,7 +35,6 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "ro.teamnet.hero.repository")
-@EnableWebMvc
 @ComponentScan(basePackages = {
         "ro.teamnet.hero.service","ro.teamnet.hero.controller"})
 
