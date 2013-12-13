@@ -23,11 +23,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.WebRequest;
-import ro.teamnet.hero.account.Account;
-import ro.teamnet.hero.account.AccountRepository;
-import ro.teamnet.hero.account.UsernameAlreadyInUseException;
+import ro.teamnet.hero.domain.Account;
+import ro.teamnet.hero.domain.Person;
 import ro.teamnet.hero.message.Message;
 import ro.teamnet.hero.message.MessageType;
+import ro.teamnet.hero.service.AccountService;
 import ro.teamnet.hero.signin.SignInUtils;
 
 import javax.inject.Inject;
@@ -36,11 +36,11 @@ import javax.validation.Valid;
 @Controller
 public class SignupController {
 
-	private final AccountRepository accountRepository;
+	private final AccountService accountService;
 
 	@Inject
-	public SignupController(AccountRepository accountRepository) {
-		this.accountRepository = accountRepository;
+	public SignupController(AccountService accountService) {
+		this.accountService = accountService;
 	}
 
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
@@ -72,8 +72,15 @@ public class SignupController {
 	
 	private Account createAccount(SignupForm form, BindingResult formBinding) {
 		try {
-			Account account = new Account(form.getUsername(), form.getPassword(), form.getFirstName(), form.getLastName());
-			accountRepository.createAccount(account);
+			Account account = new Account();
+            account.setUserName(form.getUsername());
+            account.setPassword(form.getPassword());
+            Person  person=new Person();
+            person.setFirstName(form.getFirstName());
+            person.setLastName(form.getLastName());
+            account.setPerson(person);
+
+			accountService.createAccount(account);
 			return account;
 		} catch (UsernameAlreadyInUseException e) {
 			formBinding.rejectValue("username", "user.duplicateUsername", "already in use");

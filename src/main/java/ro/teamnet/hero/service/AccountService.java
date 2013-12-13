@@ -1,5 +1,6 @@
 package ro.teamnet.hero.service;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
 import ro.teamnet.hero.domain.Account;
 
 import java.math.BigDecimal;
@@ -15,7 +16,7 @@ import java.util.List;
  * written consent of Teamnet.
  */
 
-public interface AccountService {
+public interface AccountService extends UserDetailsService{
 
     Account createAccount(Account account);
 

@@ -35,7 +35,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {
-        "ro.teamnet.hero.controller"})
+        "ro.teamnet.hero.controller","ro.teamnet.hero.signin","ro.teamnet.hero.signup"})
 
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 

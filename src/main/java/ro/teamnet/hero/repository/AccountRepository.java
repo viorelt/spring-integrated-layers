@@ -17,4 +17,6 @@ import java.math.BigDecimal;
  */
 @Repository
 public interface AccountRepository extends JpaRepository<Account,BigDecimal>{
+
+    Account findByUserName(String username);
 }

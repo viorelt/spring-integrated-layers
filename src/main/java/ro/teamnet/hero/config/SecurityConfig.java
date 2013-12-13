@@ -28,6 +28,7 @@ import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import ro.teamnet.hero.service.AccountService;
 
 import javax.sql.DataSource;
 
@@ -43,14 +44,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	private ApplicationContext context;
 	
 	@Autowired
-	private DataSource dataSource;
+	private AccountService accountService;
 	
 	@Override
 	protected void registerAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-		auth.jdbcAuthentication()
-				.dataSource(dataSource)
-				.usersByUsernameQuery("select username, password, true from Account where username = ?")
-				.authoritiesByUsernameQuery("select username, 'ROLE_USER' from Account where username = ?")
+		auth.userDetailsService(accountService)
 				.passwordEncoder(passwordEncoder());
 	}
 	

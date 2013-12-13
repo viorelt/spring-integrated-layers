@@ -1,7 +1,13 @@
 package ro.teamnet.hero.domain;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Account.java
@@ -14,7 +20,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="ACCOUNT")
-public class Account {
+public class Account implements UserDetails {
     @Id
     @Column(name="ID_ACCOUNT")
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -49,8 +55,40 @@ public class Account {
         this.userName = userName;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Collection<GrantedAuthority> roles=new ArrayList<GrantedAuthority>();
+        roles.add(new SimpleGrantedAuthority("ROLE_USER"));
+        return roles;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return userName;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public void setPassword(String password) {
