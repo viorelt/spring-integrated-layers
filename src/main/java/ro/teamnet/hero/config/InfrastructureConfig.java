@@ -36,7 +36,7 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "ro.teamnet.hero.repository")
 @ComponentScan(basePackages = {
-        "ro.teamnet.hero.service","ro.teamnet.hero.controller"})
+        "ro.teamnet.hero.service"})
 
 @PropertySource("classpath:ro/teamnet/hero/config/application.properties")
 public class InfrastructureConfig {
